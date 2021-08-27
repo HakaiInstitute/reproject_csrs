@@ -13,6 +13,7 @@ class Helmert {
 private:
 	double itrf_epoch{2010}, x, dx, y, dy, z, dz, rx, drx, ry, dry, rz, drz, s, ds;
 	[[nodiscard]] std::string proj_str() const;
+
 public:
 	explicit Helmert(const std::string& s_ref_frame);
 	PJ* create_pj(PJ_CONTEXT* ctx) const { return proj_create(ctx, this->proj_str().c_str()); }

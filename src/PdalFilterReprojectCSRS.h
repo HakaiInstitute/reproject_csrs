@@ -11,11 +11,6 @@
 
 namespace pdal {
 class PDAL_DLL PdalFilterReprojectCSRS : public Filter {
-public:
-	PdalFilterReprojectCSRS()
-			:Filter() { }
-	std::string getName() const override;
-
 private:
 	std::string s_ref_frame;             // e.g. itrf14
 	std::string s_crs;                  // e.g. EPSG:4326
@@ -26,10 +21,13 @@ private:
 	void addArgs(ProgramArgs& args) override;
 	void filter(PointView& view) override;
 
-private:
 	PdalFilterReprojectCSRS& operator=(const PdalFilterReprojectCSRS&); // not implemented
 	PdalFilterReprojectCSRS(const PdalFilterReprojectCSRS&); // not implemented
 
+public:
+	PdalFilterReprojectCSRS()
+			:Filter() { }
+	std::string getName() const override;
 };
 }
 
