@@ -2,8 +2,8 @@
 // Created by taylor on 2021-08-27.
 //
 
-#ifndef HAKAI_LAS2CSRS_HELMERT_H
-#define HAKAI_LAS2CSRS_HELMERT_H
+#ifndef REPROJECT_CSRS_HELMERT_H
+#define REPROJECT_CSRS_HELMERT_H
 
 #include <string>
 #include <proj.h>
@@ -19,4 +19,4 @@ public:
 };
 }
 
-#endif //HAKAI_LAS2CSRS_HELMERT_H
+#endif //REPROJECT_CSRS_HELMERT_H

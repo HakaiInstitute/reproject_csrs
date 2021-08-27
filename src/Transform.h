@@ -2,8 +2,8 @@
 // Created by taylor on 2021-08-24.
 //
 
-#ifndef HAKAI_LAS2CSRS_TRANSFORM_H
-#define HAKAI_LAS2CSRS_TRANSFORM_H
+#ifndef REPROJECT_CSRS_TRANSFORM_H
+#define REPROJECT_CSRS_TRANSFORM_H
 
 #include <proj.h>
 
@@ -15,4 +15,4 @@ public:
 };
 }
 
-#endif //HAKAI_LAS2CSRS_TRANSFORM_H
+#endif //REPROJECT_CSRS_TRANSFORM_H
