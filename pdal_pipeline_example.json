@@ -1,0 +1,12 @@
+[
+  "test.txt",
+  {
+    "type": "filters.reprojectcsrs",
+    "s_ref_frame": "itrf14",
+    "s_crs": "EPSG:4326",
+    "t_crs": "EPSG:4954",
+    "s_epoch": 2021.000,
+    "t_epoch": 1997.000
+  },
+  "converted.txt"
+]
