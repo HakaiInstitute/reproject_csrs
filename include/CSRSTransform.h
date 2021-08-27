@@ -2,8 +2,8 @@
 // Created by taylor on 2021-08-24.
 //
 
-#ifndef REPROJECT_CSRS_NAD83CSRSTRANSFORM_H
-#define REPROJECT_CSRS_NAD83CSRSTRANSFORM_H
+#ifndef REPROJECT_CSRS_CSRSTRANSFORM_H
+#define REPROJECT_CSRS_CSRSTRANSFORM_H
 
 #include <string>
 #include <utility>
@@ -11,18 +11,18 @@
 #include <vector>
 #include "Transform.h"
 #include "constants.h"
-#include "Helmert.h"
+#include "HelmertFactory.h"
 
 namespace hakai_csrs {
 // Custom smart pointer for PJ transformation objects
 struct PJ_deleter { void operator()(PJ* P) { proj_destroy(P); }};
 typedef std::unique_ptr<PJ, PJ_deleter> PJ_ptr;
 
-class Nad83CSRSTransform : public Transform {
+class CSRSTransform : public Transform {
 private:
 	PJ_CONTEXT* ctx{proj_context_create()};
 
-	Helmert helmert;					// Hold helmert transform params
+	HelmertFactory helmert_factory;		// Helmert transform params
 	std::string s_crs;                  // e.g. EPSG:4326
 	std::string t_crs{nad83csrs_srid};  // e.g. EPSG:3157
 	double s_epoch;                     // e.g. 2020.5342
@@ -36,11 +36,11 @@ private:
 
 public:
 	// Constructor
-	Nad83CSRSTransform(const std::string& sRefFrame, std::string sCrs, std::string tCrs, double sEpoch,
+	CSRSTransform(const std::string& sRefFrame, std::string sCrs, std::string tCrs, double sEpoch,
 			double tEpoch);
 
 	// Destructor
-	virtual ~Nad83CSRSTransform();
+	virtual ~CSRSTransform();
 
 	// Transform functions
 	void forward(PJ_COORD& coord) override { trans(coord, PJ_FWD); }
@@ -48,4 +48,4 @@ public:
 };
 }
 
-#endif //REPROJECT_CSRS_NAD83CSRSTRANSFORM_H
+#endif //REPROJECT_CSRS_CSRSTRANSFORM_H

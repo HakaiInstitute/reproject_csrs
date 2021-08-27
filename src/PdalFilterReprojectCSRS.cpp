@@ -3,7 +3,7 @@
 //
 
 #include "PdalFilterReprojectCSRS.h"
-#include "Nad83CSRSTransform.h"
+#include "CSRSTransform.h"
 #include <pdal/pdal_internal.hpp>
 
 namespace pdal {
@@ -36,7 +36,7 @@ void PdalFilterReprojectCSRS::addArgs(ProgramArgs& args)
 
 void PdalFilterReprojectCSRS::filter(PointView& view)
 {
-	auto transformer = hakai_csrs::Nad83CSRSTransform{s_ref_frame, s_crs, t_crs, s_epoch, t_epoch};
+	auto transformer = hakai_csrs::CSRSTransform{s_ref_frame, s_crs, t_crs, s_epoch, t_epoch};
 	PointRef point(view, 0);
 
 	for (PointId idx = 0; idx<view.size(); ++idx) {

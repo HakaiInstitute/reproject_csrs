@@ -7,20 +7,19 @@
 #include <utility>
 #include <memory>
 #include <functional>
-#include "Nad83CSRSTransform.h"
+#include "CSRSTransform.h"
 
 namespace hakai_csrs {
 // Constructor
-Nad83CSRSTransform::Nad83CSRSTransform(const std::string& sRefFrame, std::string sCrs, std::string tCrs,
+CSRSTransform::CSRSTransform(const std::string& sRefFrame, std::string sCrs, std::string tCrs,
 		double sEpoch, double tEpoch)
-		:helmert{sRefFrame}, s_crs{std::move(sCrs)}, t_crs{std::move(tCrs)},
-		 s_epoch{sEpoch}, t_epoch{tEpoch}
+		:helmert_factory{sRefFrame}, s_crs{std::move(sCrs)}, t_crs{std::move(tCrs)}, s_epoch{sEpoch}, t_epoch{tEpoch}
 {
 	PJ_ptr P_in2cartesian{proj_create_crs_to_crs(this->ctx, this->s_crs.c_str(), cart_srid.c_str(), nullptr)};
 	if (!P_in2cartesian) this->throwProjErr();
 	else this->transforms.push_back(std::move(P_in2cartesian));
 
-	PJ_ptr P_helmert{helmert.create_pj(this->ctx)};
+	PJ_ptr P_helmert{helmert_factory.create_pj(this->ctx)};
 	if (!P_helmert) this->throwProjErr();
 	else this->transforms.push_back(std::move(P_helmert));
 
@@ -39,20 +38,20 @@ Nad83CSRSTransform::Nad83CSRSTransform(const std::string& sRefFrame, std::string
 	else this->transforms.push_back(std::move(P_csrs2out));
 }
 
-Nad83CSRSTransform::~Nad83CSRSTransform()
+CSRSTransform::~CSRSTransform()
 {
 	this->transforms.clear();
 	proj_context_destroy(ctx);
 	proj_cleanup();
 }
 
-void Nad83CSRSTransform::throwProjErr()
+void CSRSTransform::throwProjErr()
 {
 	const char* err = proj_errno_string(proj_context_errno(this->ctx));
 	throw std::runtime_error(err);
 }
 
-void Nad83CSRSTransform::trans(PJ_COORD& coord, PJ_DIRECTION direction)
+void CSRSTransform::trans(PJ_COORD& coord, PJ_DIRECTION direction)
 {
 	size_t stride = sizeof(coord);
 	for (PJ_ptr& P: this->transforms) {

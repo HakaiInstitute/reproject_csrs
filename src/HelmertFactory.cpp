@@ -3,10 +3,10 @@
 //
 
 #include <stdexcept>
-#include "Helmert.h"
+#include "HelmertFactory.h"
 
 namespace hakai_csrs {
-Helmert::Helmert(const std::string& s_ref_frame)
+HelmertFactory::HelmertFactory(const std::string& s_ref_frame)
 {
 	if (s_ref_frame=="itrf88") {
 		x = 0.97300;
@@ -220,7 +220,7 @@ Helmert::Helmert(const std::string& s_ref_frame)
 		throw std::runtime_error("src_ref_frame not found!");
 }
 
-std::string Helmert::proj_str() const
+std::string HelmertFactory::proj_str() const
 {
 	char helmert_str[512]{};
 	sprintf(helmert_str,

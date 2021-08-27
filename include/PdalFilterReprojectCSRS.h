@@ -7,7 +7,7 @@
 
 #include <pdal/pdal_internal.hpp>
 #include <pdal/Filter.hpp>
-#include "Nad83CSRSTransform.h"
+#include "CSRSTransform.h"
 
 namespace pdal {
 class PDAL_DLL PdalFilterReprojectCSRS : public Filter {
