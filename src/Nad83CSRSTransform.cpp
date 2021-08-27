@@ -24,25 +24,19 @@ Nad83CSRSTransform::Nad83CSRSTransform(const std::string& sRefFrame, std::string
 	if (!P_helmert) this->throwProjErr();
 	else this->transforms.push_back(std::move(P_helmert));
 
-	// Add epoch change transforms if target and source epoch are different
-	if (std::abs(t_epoch-s_epoch)<1e-8) {
-		PJ_ptr P_cartesian2latlng{
-				proj_create_crs_to_crs(this->ctx, nad83csrs_srid.c_str(), latlng_srid.c_str(), nullptr)};
-		if (!P_cartesian2latlng) this->throwProjErr();
-		else this->transforms.push_back(std::move(P_cartesian2latlng));
-
-		// TODO: Grid shift transform here
-		// PJ *gridshift
-
-		PJ_ptr latlng2out{proj_create_crs_to_crs(this->ctx, latlng_srid.c_str(), this->t_crs.c_str(), nullptr)};
-		if (!latlng2out) this->throwProjErr();
-		else this->transforms.push_back(std::move(latlng2out));
+	if (std::abs(t_epoch-s_epoch)>1e-8) {
+		// Grid shift transform
+		char grid_shift_proj_str[256]{};
+		sprintf(grid_shift_proj_str, "proj=deformation t_epoch=%.5f grids=ca_nrc_NAD83v70VG.tif inv", t_epoch);
+		PJ_ptr grid_shift{proj_create(this->ctx, grid_shift_proj_str)};
+		if (!grid_shift) this->throwProjErr();
+		else this->transforms.push_back(std::move(grid_shift));
 	}
-	else {
-		PJ_ptr P_cartesian2out{proj_create_crs_to_crs(this->ctx, nad83csrs_srid.c_str(), this->t_crs.c_str(), nullptr)};
-		if (!P_cartesian2out) this->throwProjErr();
-		else this->transforms.push_back(std::move(P_cartesian2out));
-	}
+
+	// Transform to user output CRS
+	PJ_ptr P_csrs2out{proj_create_crs_to_crs(this->ctx, nad83csrs_srid.c_str(), this->t_crs.c_str(), nullptr)};
+	if (!P_csrs2out) this->throwProjErr();
+	else this->transforms.push_back(std::move(P_csrs2out));
 }
 
 Nad83CSRSTransform::~Nad83CSRSTransform()
