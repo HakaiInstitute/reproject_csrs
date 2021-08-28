@@ -10,9 +10,14 @@ It does this with high accuracy by using the official Helmert transformation par
 ### Installation prerequisites
 
 - [Git](https://git-scm.com/downloads) (for downloading source code)
-- [PROJ ~8.1](https://proj.org/download.html)
-- [PDAL ~2.3](https://pdal.io/download.html)
-- [CMake](https://cmake.org/install/)
+- [PROJ 7 or 8](https://proj.org/download.html)
+- [PDAL ~2.2](https://pdal.io/download.html)
+- [CMake 3.16+](https://cmake.org/install/)
+
+On Ubuntu install all dependencies with 
+```shell
+sudo apt install git libproj-dev libpdal-dev cmake
+```
 
 ### Building from source
 
