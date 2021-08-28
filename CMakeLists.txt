@@ -8,7 +8,6 @@ find_package(PROJ REQUIRED)
 find_package(PDAL 1.0.0 REQUIRED CONFIG)
 
 include_directories(
-        ${PDAL_INCLUDE_DIRS}
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/src
 )
@@ -23,6 +22,11 @@ file(GLOB all_SRCS
         )
 
 add_library(pdal_plugin_filter_reprojectcsrs SHARED ${all_SRCS})
-target_link_libraries(pdal_plugin_filter_reprojectcsrs PRIVATE ${PROJ_LIBRARIES} PRIVATE ${PDAL_LIBRARIES})
-target_include_directories(pdal_plugin_filter_reprojectcsrs PRIVATE ${PDAL_INCLUDE_DIRS})
+
+target_include_directories(
+        pdal_plugin_filter_reprojectcsrs
+        PRIVATE ${PROJ_INCLUDE_DIRS}
+        PRIVATE${PDAL_INCLUDE_DIRS}
+)
+target_link_libraries(pdal_plugin_filter_reprojectcsrs PRIVATE ${PDAL_LIBRARIES})
 target_link_directories(pdal_plugin_filter_reprojectcsrs PRIVATE ${PDAL_LIBRARY_DIRS})
