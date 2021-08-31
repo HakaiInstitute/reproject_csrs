@@ -91,7 +91,6 @@ filters.reprojectcsrs -- https://github.com/HakaiInstitute/hakai-las2csrs
 - `include/`
   - `constants.h` - Some constants used throughout the program
   - `Transform.h` - An abstract base class used by the CSRSTransform class
-  - `CSRSTransform.h`, `HelmertFactory.h`, `PdalFilterReprojectCSRS.h` - Header files for the above listed `src/*` files
   
 ---
 #### Acknowledgements
