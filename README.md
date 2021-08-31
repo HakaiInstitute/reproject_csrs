@@ -40,13 +40,30 @@ cd -
 ```
 
 ## Usage
-The produced dynamic library is a PDAL filter module that can be used in any [PDAL Pipeline](https://pdal.io/pipeline.html)
-workflow. An example pipeline file is included in this repository [here](https://github.com/HakaiInstitute/reproject_csrs/blob/main/pdal_pipeline_example.json). Define your workflow in a .json file and run it with `pdal pipeline your-pipeline.json`.
+The produced dynamic library file implements a PDAL Filter module called `filters.reprojectcsrs` that can be used in any [PDAL Pipeline](https://pdal.io/pipeline.html)
+workflow. An example pipeline.json for running just this reproject_csrs library would looks like this:
 
-If PDAL complains that `PDAL: Couldn't create filter stage of type 'filters.reprojectcsrs'`, make sure the built .so or .dll
-file is in the PDAL search path. By default, PDAL will search the following paths for plugins `.`, `./lib`, `../lib`, `./bin`, `../bin`.
-You can also add the file to the search path by defining the `PDAL_DRIVER_PATH` environment variable to point to the directory containing
-the plugin. [More information here](https://pdal.io/faq.html).
+```json
+[
+  "your-input-file.laz",
+  {
+    "type": "filters.reprojectcsrs",
+    "s_ref_frame": "itrf14",
+    "s_crs": "EPSG:4326",
+    "t_crs": "EPSG:4954",
+    "s_epoch": 2021.000,
+    "t_epoch": 1997.000
+  },
+  "output.laz"
+]
+```
+
+Once you define workflow in a .json file (as above), run it with `pdal pipeline pipeline.json` in the command line.
+
+If PDAL complains that `PDAL: Couldn't create filter stage of type 'filters.reprojectcsrs'`, make sure the built `libpdal_plugin_filter_reprojectcsrs.so` 
+or `libpdal_plugin_filter_reprojectcsrs.dll` file is in the PDAL search path. By default, PDAL will search the following paths for plugins 
+`.`, `./lib`, `../lib`, `./bin`, `../bin`. You can also add the file to the search path by defining the `PDAL_DRIVER_PATH` environment variable 
+to point to the directory containing the plugin. [More information here](https://pdal.io/faq.html).
 
 You can get the documentation for this filter using ` pdal --options=filters.reprojectcsrs`. It will print the following message:
 ```text
