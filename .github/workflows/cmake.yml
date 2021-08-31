@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: linux-so
-        path: build/reproject_csrs.so
+        path: build/libpdal_plugin_filter_reprojectcsrs.so
 
   Release:
     needs: [ build-linux ]
@@ -80,6 +80,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: reproject_csrs.so
-          asset_name: reproject_csrs.so
+          asset_path: libpdal_plugin_filter_reprojectcsrs.so
+          asset_name: libpdal_plugin_filter_reprojectcsrs.so
           asset_content_type: application/binary
