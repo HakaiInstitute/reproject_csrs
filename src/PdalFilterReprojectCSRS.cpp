@@ -20,7 +20,8 @@ std::string PdalFilterReprojectCSRS::getName() const { return s_info.name; }
 
 void PdalFilterReprojectCSRS::addArgs(ProgramArgs& args)
 {
-	args.add("s_ref_frame", "The source reference frame of the coordinates (e.g. 'itrf14')",
+	args.add("s_ref_frame", "The source reference frame of the coordinates "
+							"[itrf88|itrf89|itrf90|itrf91|itrf92|itrf93|itrf94|itrf96|itrf97|itrf00|itrf05|itrf08|itrf14]",
 			s_ref_frame, "itrf14");
 	args.add("s_crs",
 			"The source CRS in 'AUTHORITY:CODE' format, or as a proj string like '+proj=longlat +datum=WGS84'or a CRS name found in the proj database",
@@ -30,8 +31,9 @@ void PdalFilterReprojectCSRS::addArgs(ProgramArgs& args)
 			t_crs, "EPSG:4954");
 	args.add("s_epoch", "The reference epoch for the input in decimal year format, e.g. '2020.5342'",
 			s_epoch, 2010.0000);
-	args.add("t_epoch", "The reference epoch for the output in decimal year format, e.g. '2020.5342'",
-			t_epoch, 2010.000);
+	args.add("t_epoch", "Optional reference epoch for the output in decimal year format, e.g. '1997.0000'. "
+						"By default, the output epoch will match the s_epoch value.",
+			t_epoch);
 }
 
 bool PdalFilterReprojectCSRS::processOne(PointRef& point)

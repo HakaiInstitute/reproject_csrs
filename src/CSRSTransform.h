@@ -26,7 +26,7 @@ private:
 	std::string s_crs;                  // e.g. EPSG:4326
 	std::string t_crs{nad83csrs_srid};  // e.g. EPSG:3157
 	double s_epoch;                     // e.g. 2020.5342
-	double t_epoch;                     // e.g. 1997.0000
+	double t_epoch{};                   // e.g. 1997.0000
 
 	std::vector<PJ_ptr> transforms;
 

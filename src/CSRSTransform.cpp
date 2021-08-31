@@ -23,7 +23,7 @@ CSRSTransform::CSRSTransform(const std::string& sRefFrame, std::string sCrs, std
 	if (!P_helmert) this->throwProjErr();
 	else this->transforms.push_back(std::move(P_helmert));
 
-	if (std::abs(t_epoch-s_epoch)>1e-8) {
+	if (t_epoch>1 && std::abs(t_epoch-s_epoch)>1e-8) {
 		// Grid shift transform
 		char grid_shift_proj_str[256]{};
 		sprintf(grid_shift_proj_str, "proj=deformation t_epoch=%.5f grids=ca_nrc_NAD83v70VG.tif inv", t_epoch);
