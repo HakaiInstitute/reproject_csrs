@@ -34,28 +34,31 @@ void PdalFilterReprojectCSRS::addArgs(ProgramArgs& args)
 			t_epoch, 2010.000);
 }
 
-void PdalFilterReprojectCSRS::filter(PointView& view)
+bool PdalFilterReprojectCSRS::processOne(PointRef& point)
 {
-	auto transformer = hakai_csrs::CSRSTransform{s_ref_frame, s_crs, t_crs, s_epoch, t_epoch};
-	PointRef point(view, 0);
+	auto x = point.getFieldAs<double>(Dimension::Id::X);
+	auto y = point.getFieldAs<double>(Dimension::Id::Y);
+	auto z = point.getFieldAs<double>(Dimension::Id::Z);
 
-	for (PointId idx = 0; idx<view.size(); ++idx) {
-		point.setPointId(idx);
+	PJ_COORD coord = proj_coord(x, y, z, s_epoch);
+	transformer->forward(coord);
 
-		auto x = point.getFieldAs<double>(Dimension::Id::X);
-		auto y = point.getFieldAs<double>(Dimension::Id::Y);
-		auto z = point.getFieldAs<double>(Dimension::Id::Z);
+	point.setField(Dimension::Id::X, coord.xyzt.x);
+	point.setField(Dimension::Id::Y, coord.xyzt.y);
+	point.setField(Dimension::Id::Z, coord.xyzt.z);
 
-		PJ_COORD coord = proj_coord(x, y, z, s_epoch);
-		transformer.forward(coord);
+	return true;
+}
 
-		point.setField(Dimension::Id::X, coord.xyzt.x);
-		point.setField(Dimension::Id::Y, coord.xyzt.y);
-		point.setField(Dimension::Id::Z, coord.xyzt.z);
-	}
+void PdalFilterReprojectCSRS::ready(BasePointTable& table)
+{
+	this->transformer = std::make_unique<hakai_csrs::CSRSTransform>(s_ref_frame, s_crs, t_crs, s_epoch, t_epoch);
+}
 
+void PdalFilterReprojectCSRS::done(BasePointTable& table)
+{
 	// Set the SRS in the output
-	setSpatialReference(SpatialReference(t_crs));
+	table.setSpatialReference(SpatialReference(t_crs));
 }
 
 } // namespace pdal
