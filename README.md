@@ -67,7 +67,7 @@ to point to the directory containing the plugin. [More information here](https:/
 
 You can get the documentation for this filter using ` pdal --options=filters.reprojectcsrs`. It will print the following message:
 ```text
-filters.reprojectcsrs -- https://github.com/HakaiInstitute/hakai-las2csrs
+filters.reprojectcsrs -- https://github.com/HakaiInstitute/reproject_csrs
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   user_data
       User JSON

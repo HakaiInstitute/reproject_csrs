@@ -11,7 +11,7 @@ namespace pdal {
 static PluginInfo const s_info{
 		"filters.reprojectcsrs",
 		"Reproject to NAD83(CSRS)",
-		"https://github.com/HakaiInstitute/hakai-las2csrs"
+		"https://github.com/HakaiInstitute/reproject_csrs"
 };
 
 CREATE_SHARED_STAGE(PdalFilterReprojectCSRS, s_info)
