@@ -21,7 +21,7 @@ std::string PdalFilterReprojectCSRS::getName() const { return s_info.name; }
 void PdalFilterReprojectCSRS::addArgs(ProgramArgs& args)
 {
 	args.add("s_ref_frame", "The source reference frame of the coordinates "
-							"[itrf88|itrf89|itrf90|itrf91|itrf92|itrf93|itrf94|itrf96|itrf97|itrf00|itrf05|itrf08|itrf14]",
+							"[itrf88|itrf89|itrf90|itrf91|itrf92|itrf93|itrf94|itrf96|itrf97|itrf00|itrf05|itrf08|itrf14|nad83csrs]",
 			s_ref_frame, "itrf14");
 	args.add("s_crs",
 			"The source CRS in 'AUTHORITY:CODE' format, or as a proj string like '+proj=longlat +datum=WGS84'or a CRS name found in the proj database",

@@ -85,7 +85,7 @@ filters.reprojectcsrs -- https://github.com/HakaiInstitute/reproject_csrs
       If 'where' option is set, describes how skipped points should be merged with kept points in standard mode.
 
   s_ref_frame [itrf14]
-      The source reference frame of the coordinates [itrf88|itrf89|itrf90|itrf91|itrf92|itrf93|itrf94|itrf96|itrf97|itrf00|itrf05|itrf08|itrf14]
+      The source reference frame of the coordinates [itrf88|itrf89|itrf90|itrf91|itrf92|itrf93|itrf94|itrf96|itrf97|itrf00|itrf05|itrf08|itrf14|nad83csrs]
 
   s_crs [EPSG:4326]
       The source CRS in 'AUTHORITY:CODE' format, or as a proj string like '+proj=longlat +datum=WGS84'or a CRS name found in the proj database

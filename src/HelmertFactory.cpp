@@ -8,7 +8,23 @@
 namespace hakai_csrs {
 HelmertFactory::HelmertFactory(const std::string& s_ref_frame)
 {
-	if (s_ref_frame=="itrf88") {
+	if (s_ref_frame=="nad83csrs") {
+		x = 0;
+		dx = 0;
+		y = 0;
+		dy = 0;
+		z = 0;
+		dz = 0;
+		rx = 0;
+		drx = 0;
+		ry = 0;
+		dry = 0;
+		rz = 0;
+		drz = 0;
+		s = 0;
+		ds = 0;
+	}
+	else if (s_ref_frame=="itrf88") {
 		x = 0.97300;
 		dx = 0.00000;
 		y = -1.90720;
