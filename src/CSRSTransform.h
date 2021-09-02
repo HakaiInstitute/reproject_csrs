@@ -44,7 +44,7 @@ public:
 
 	// Transform functions
 	void forward(PJ_COORD& coord) override { trans(coord, PJ_FWD); }
-	void backward(PJ_COORD& coord) override { trans(coord, PJ_INV); }
+	void backward(PJ_COORD& coord) override;
 };
 }
 

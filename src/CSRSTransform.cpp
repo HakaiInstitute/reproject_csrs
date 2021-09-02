@@ -64,4 +64,15 @@ void CSRSTransform::trans(PJ_COORD& coord, PJ_DIRECTION direction)
 		);
 	}
 }
+
+void CSRSTransform::backward(PJ_COORD& coord)
+{
+	// Reverse the transforms list
+	std::reverse(this->transforms.begin(), this->transforms.end());
+
+	trans(coord, PJ_INV);
+
+	// Un-reverse the transforms list
+	std::reverse(this->transforms.begin(), this->transforms.end());
+}
 }

@@ -52,7 +52,8 @@ workflow. An example pipeline.json for running just this reproject_csrs library 
     "s_crs": "EPSG:4326",
     "t_crs": "EPSG:4954",
     "s_epoch": 2021.000,
-    "t_epoch": 1997.000
+    "t_epoch": 1997.000,
+    "inv": false
   },
   "output.laz"
 ]
@@ -98,6 +99,10 @@ filters.reprojectcsrs -- https://github.com/HakaiInstitute/reproject_csrs
 
   t_epoch
       Optional reference epoch for the output in decimal year format, e.g. '1997.0000'. By default, the output epoch will match the s_epoch value.
+
+  inv [false]
+      Do the reverse transformation (ie. from nad83csrs,t_epoch,t_crs to s_ref_frame,s_epoch,s_crs.
+
 ```
 
 ## Files

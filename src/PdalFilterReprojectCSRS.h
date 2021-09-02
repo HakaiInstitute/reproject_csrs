@@ -17,6 +17,7 @@ private:
 	std::string t_crs;				    // e.g. EPSG:3157
 	double s_epoch;                     // e.g. 2020.5342
 	double t_epoch;                     // e.g. 1997.0000
+	bool inv{false};
 
 	std::unique_ptr<hakai_csrs::CSRSTransform> transformer{nullptr};
 

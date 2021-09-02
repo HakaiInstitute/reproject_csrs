@@ -32,8 +32,9 @@ void PdalFilterReprojectCSRS::addArgs(ProgramArgs& args)
 	args.add("s_epoch", "The reference epoch for the input in decimal year format, e.g. '2020.5342'",
 			s_epoch, 2010.0000);
 	args.add("t_epoch", "Optional reference epoch for the output in decimal year format, e.g. '1997.0000'. "
-						"By default, the output epoch will match the s_epoch value.",
-			t_epoch);
+						"By default, the output epoch will match the s_epoch value.", t_epoch);
+	args.add("inv", "Do the reverse transformation (ie. from nad83csrs,t_epoch,t_crs to s_ref_frame,s_epoch,s_crs.",
+			inv, false);
 }
 
 bool PdalFilterReprojectCSRS::processOne(PointRef& point)
@@ -43,7 +44,12 @@ bool PdalFilterReprojectCSRS::processOne(PointRef& point)
 	auto z = point.getFieldAs<double>(Dimension::Id::Z);
 
 	PJ_COORD coord = proj_coord(x, y, z, s_epoch);
-	transformer->forward(coord);
+	if (inv) {
+		transformer->backward(coord);
+	}
+	else {
+		transformer->forward(coord);
+	}
 
 	point.setField(Dimension::Id::X, coord.xyzt.x);
 	point.setField(Dimension::Id::Y, coord.xyzt.y);
