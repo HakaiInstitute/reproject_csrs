@@ -1,5 +1,5 @@
 [
-  "test.txt",
+  "test.laz",
   {
     "type": "filters.reprojectcsrs",
     "s_ref_frame": "itrf14",
@@ -9,5 +9,5 @@
     "t_epoch": 1997.000,
     "inv": false
   },
-  "converted.txt"
+  "converted.laz"
 ]
