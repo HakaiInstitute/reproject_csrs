@@ -1,8 +1,10 @@
 # Reproject CSRS
 
-This program converts Lidar point coordinates in .las, .sbet, and other lidar file formats from various ITRF realizations to NAD83(CSRS).
+This program converts Lidar point coordinates in .las, .sbet, and other lidar file formats from various ITRF
+realizations to NAD83(CSRS).
 
-It does this with high accuracy by using the official Helmert transformation parameters and NAD83(CSRS) v7 Velocity Grid (NAD83v70VG) from Natural Resources Canada
+It does this with high accuracy by using the official Helmert transformation parameters and NAD83(CSRS) v7 Velocity
+Grid (NAD83v70VG) from Natural Resources Canada
 ([available here](https://webapp.geod.nrcan.gc.ca/geod/data-donnees/transformations.php?locale=en)).
 
 ## Installation
@@ -14,7 +16,8 @@ It does this with high accuracy by using the official Helmert transformation par
 - [PDAL ~2.2](https://pdal.io/download.html)
 - [CMake 3.16+](https://cmake.org/install/)
 
-On Ubuntu install all dependencies with 
+On Ubuntu install all dependencies with
+
 ```shell
 sudo apt install git libproj-dev libpdal-dev cmake
 ```
@@ -40,7 +43,9 @@ cd -
 ```
 
 ## Usage
-The produced dynamic library file implements a PDAL Filter module called `filters.reprojectcsrs` that can be used in any [PDAL Pipeline](https://pdal.io/pipeline.html)
+
+The produced dynamic library file implements a PDAL Filter module called `filters.reprojectcsrs` that can be used in
+any [PDAL Pipeline](https://pdal.io/pipeline.html)
 workflow. An example pipeline.json for running just this reproject_csrs library would looks like this:
 
 ```json
@@ -61,12 +66,9 @@ workflow. An example pipeline.json for running just this reproject_csrs library 
 
 Once you define workflow in a .json file (as above), run it with `pdal pipeline pipeline.json` in the command line.
 
-If PDAL complains that `PDAL: Couldn't create filter stage of type 'filters.reprojectcsrs'`, make sure the built `libpdal_plugin_filter_reprojectcsrs.so` 
-or `libpdal_plugin_filter_reprojectcsrs.dll` file is in the PDAL search path. By default, PDAL will search the following paths for plugins 
-`.`, `./lib`, `../lib`, `./bin`, `../bin`. You can also add the file to the search path by defining the `PDAL_DRIVER_PATH` environment variable 
-to point to the directory containing the plugin. [More information here](https://pdal.io/faq.html).
+You can get the documentation for this filter using ` pdal --options=filters.reprojectcsrs`. It will print the following
+message:
 
-You can get the documentation for this filter using ` pdal --options=filters.reprojectcsrs`. It will print the following message:
 ```text
 filters.reprojectcsrs -- https://github.com/HakaiInstitute/reproject_csrs
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,17 +107,30 @@ filters.reprojectcsrs -- https://github.com/HakaiInstitute/reproject_csrs
 
 ```
 
+## Common problems
+
+- `PDAL: Couldn't create filter stage of type 'filters.reprojectcsrs'`
+    - Make sure the built `libpdal_plugin_filter_reprojectcsrs.so` or `libpdal_plugin_filter_reprojectcsrs.dll` file is
+      in the PDAL search path. By default, PDAL will search the following paths for plugins
+      `.`, `./lib`, `../lib`, `./bin`, `../bin`. You can also add the file to the search path by defining
+      the `PDAL_DRIVER_PATH` environment variable to point to the directory containing the
+      plugin. [More information here](https://pdal.io/faq.html).
+- Missing grid files
+  - Download missing grid files with [projsync](https://proj.org/apps/projsync.html), e.g. `projsync --area-of-use Canada`
+
 ## Files
+
 - `src/`
-  - `PdalFilterReprojectCSRS.cpp` - The main library file that implements a PDAL Filter
-  - `CSRSTransform.cpp` - Object that instantiates the PROJ pipeline to convert individual coordinates
-  - `HelmertFactory.cpp` - Factory for creating a proj transform based on a specified ITRF reference frame
+    - `PdalFilterReprojectCSRS.cpp` - The main library file that implements a PDAL Filter
+    - `CSRSTransform.cpp` - Object that instantiates the PROJ pipeline to convert individual coordinates
+    - `HelmertFactory.cpp` - Factory for creating a proj transform based on a specified ITRF reference frame
 - `include/`
-  - `constants.h` - Some constants used throughout the program
-  - `Transform.h` - An abstract base class used by the CSRSTransform class
-  
+    - `constants.h` - Some constants used throughout the program
+    - `Transform.h` - An abstract base class used by the CSRSTransform class
+
 ---
+
 #### Acknowledgements
 
-Thanks to [Rob Skelly](https://github.com/rskelly) for providing code to their [las2csrs](https://github.com/rskelly/las2csrs) program, which was very helpful
-for developing this tool.
+Thanks to [Rob Skelly](https://github.com/rskelly) for providing code to
+their [las2csrs](https://github.com/rskelly/las2csrs) program, which was very helpful for developing this tool.
