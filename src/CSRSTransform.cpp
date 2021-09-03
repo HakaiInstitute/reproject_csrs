@@ -66,16 +66,16 @@ CSRSTransform::CSRSTransform(
 	// Final transform to output
 	if (out=="geog") {
 		// Convert lonlat in radians to latlon in degrees
-		PJ_ptr P_lonlat_rad_to_latlon_deg{proj_create(this->ctx,
+		PJ_ptr P{proj_create(this->ctx,
 				"+proj=pipeline +step +proj=unitconvert +xy_in=rad +xy_out=deg +step +proj=axisswap +order=2,1")};
-		if (!P_lonlat_rad_to_latlon_deg) throwProjErr();
-		else this->transforms.push_back(std::move(P_lonlat_rad_to_latlon_deg));
+		if (!P) throwProjErr();
+		else this->transforms.push_back(std::move(P));
 	}
 	else if (out=="cart") {
 		// Convert lonlat in radians to cartographic coords
-		PJ_ptr P_csrs2out{proj_create(this->ctx, "+proj=cart")};
-		if (!P_csrs2out) this->throwProjErr();
-		else this->transforms.push_back(std::move(P_csrs2out));
+		PJ_ptr P{proj_create(this->ctx, "+proj=cart")};
+		if (!P) this->throwProjErr();
+		else this->transforms.push_back(std::move(P));
 	}
 	else if ((std::string)out.substr(0, 3)=="utm") {
 		// Transform to UTM coordinates
@@ -89,9 +89,9 @@ CSRSTransform::CSRSTransform(
 			throw std::runtime_error("Invalid UTM zone specified in 'out'");
 		}
 
-		PJ_ptr P_csrs2out{proj_create(this->ctx, out_str)};
-		if (!P_csrs2out) this->throwProjErr();
-		else this->transforms.push_back(std::move(P_csrs2out));
+		PJ_ptr P{proj_create(this->ctx, out_str)};
+		if (!P) this->throwProjErr();
+		else this->transforms.push_back(std::move(P));
 	}
 	else {
 		throw std::runtime_error("Invalid 'outCoords' specified. Should be one of 'geog', 'cart', 'utmX'");
