@@ -30,8 +30,8 @@ void PdalFilterReprojectCSRS::addArgs(ProgramArgs& args)
 			s_epoch, 2010.0000);
 	args.add("t_epoch", "Optional: The reference epoch for the output in decimal year format, e.g. '1997.0000'. "
 						"By default, the output epoch will match the s_epoch value.", t_epoch);
-	args.add("t_vd", "Optional: The output orthometric height datum and geoid."
-					 "By default, outputs Nad83(CSRS) ellipsoidal heights. One of [cgg2013a, ht2_2010v70]",
+	args.add("t_vd", "Optional: The Geoid for orthometric height output. "
+					 "If unspecified, outputs ellipsoidal heights. One of [cgg2013a, ht2_2010v70]",
 			t_vd);
 	args.add("out",
 			"The output type. Specify 'geog' for geographic coordinates, 'cart' for cartesian, or 'utmX' for UTM coordinates in zone X (i.e. specify an int value, not literally 'X')",
