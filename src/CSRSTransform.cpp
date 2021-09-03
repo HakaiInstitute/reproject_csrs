@@ -11,10 +11,14 @@
 
 namespace hakai_csrs {
 // Constructor
-CSRSTransform::CSRSTransform(const std::string& sRefFrame, std::string sCrs, double sEpoch, double tEpoch,
-		std::string tVd, std::string outCoords)
-		:helmert_factory{sRefFrame}, s_crs{std::move(sCrs)}, s_epoch{sEpoch}, t_epoch{tEpoch!=0 ? tEpoch : sEpoch},
-		 t_vd{std::move(tVd)}, out{std::move(outCoords)}
+CSRSTransform::CSRSTransform(
+		const std::string& sRefFrame, std::string sCrs, double sEpoch, double tEpoch, std::string tVd, std::string outCoords)
+		: helmert_factory{sRefFrame}
+		, s_crs{std::move(sCrs)}
+		, s_epoch{sEpoch}
+		, t_epoch{tEpoch!=0 ? tEpoch : sEpoch}
+		, t_vd{std::move(tVd)}
+		, out{std::move(outCoords)}
 {
 	// 1. ITRFxx Ellips -> NAD83(CSRS) Ellips
 	PJ_ptr P_in2cartesian{proj_create_crs_to_crs(this->ctx, this->s_crs.c_str(), "+proj=cart +ellps=GRS80", nullptr)};
@@ -42,20 +46,20 @@ CSRSTransform::CSRSTransform(const std::string& sRefFrame, std::string sCrs, dou
 
 	// 3. NAD83(CSRS) Ellips t_epoch -> NAD83(CSRS) Orthometric t_epoch
 	if (!t_vd.empty()) {
-		if (t_vd=="cgvd2013_cgg2013a") {
+		if (t_vd=="cgg2013a") {
 			// Note: Assumes input is EPSG:8251 (NAD83(CSRS)v6), but we're passing EPSG:8254 (NAD83(CSRS)v7).
 			PJ_ptr P{proj_create(this->ctx, "+inv +proj=vgridshift +grids=ca_nrc_CGG2013n83.tif +multiplier=1")};
 			if (!P) throwProjErr();
 			else this->transforms.push_back(std::move(P));
 		}
-		else if (t_vd=="cgvd28") {
+		else if (t_vd=="ht2_2010v70") {
 			// Note: Assumes input is EPSG:4955 (NAD83(CSRS)), but we're passing EPSG:8254 (NAD83(CSRS)v7).
 			PJ_ptr P{proj_create(this->ctx, "+inv +proj=vgridshift +grids=ca_nrc_HT2_2010v70.tif +multiplier=1")};
 			if (!P) throwProjErr();
 			else this->transforms.push_back(std::move(P));
 		}
 		else {
-			throw std::runtime_error("Invalid vertical datum name. Must be one of [cgvd2013_cgg2013a, cgvd28]");
+			throw std::runtime_error("Invalid vertical datum name. Must be one of [cgg2013a, ht2_2010v70]");
 		}
 	}
 

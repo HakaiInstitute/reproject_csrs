@@ -24,9 +24,9 @@ private:
 	HelmertFactory helmert_factory;     // Helmert transform params
 	std::string s_crs;                  // e.g. EPSG:4326
 	double s_epoch;                     // e.g. 2020.5342
-	double t_epoch{};                   // e.g. 1997.0000
-	std::string t_vd{};					// Target orthometric height vertical datum
-	std::string out{"geog"};			// One of geog, cart, utmXX (where XX is a number)
+	double t_epoch;                   	// e.g. 1997.0000
+	std::string t_vd;					// Target orthometric height vertical datum
+	std::string out;					// One of geog, cart, utmXX (where XX is a number)
 
 	std::vector<PJ_ptr> transforms;
 
@@ -36,8 +36,8 @@ private:
 
 public:
 	// Constructor
-	CSRSTransform(const std::string& sRefFrame, std::string sCrs, double sEpoch, double tEpoch,
-			std::string tVd, std::string outCoords);
+	CSRSTransform(const std::string& sRefFrame, std::string sCrs, double sEpoch, double tEpoch=0,
+			std::string tVd = "", std::string outCoords = "geog");
 
 	// Destructor
 	virtual ~CSRSTransform();
