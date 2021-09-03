@@ -11,6 +11,7 @@
 #include <vector>
 #include "Transform.h"
 #include "HelmertFactory.h"
+#include "VerticalGridShiftFactory.h"
 
 namespace hakai_csrs {
 // Custom smart pointer for PJ transformation objects
@@ -22,10 +23,10 @@ private:
 	PJ_CONTEXT* ctx{proj_context_create()};
 
 	HelmertFactory helmert_factory;     // Helmert transform params
+	VerticalGridShiftFactory vertical_grid_shift_factory;
 	std::string s_crs;                  // e.g. EPSG:4326
 	double s_epoch;                     // e.g. 2020.5342
 	double t_epoch;                   	// e.g. 1997.0000
-	std::string t_vd;					// Target orthometric height vertical datum
 	std::string out;					// One of geog, cart, utmXX (where XX is a number)
 
 	std::vector<PJ_ptr> transforms;
@@ -37,7 +38,7 @@ private:
 public:
 	// Constructor
 	CSRSTransform(const std::string& sRefFrame, std::string sCrs, double sEpoch, double tEpoch=0,
-			std::string tVd = "", std::string outCoords = "geog");
+			const std::string& tVd = "", std::string outCoords = "geog");
 
 	// Destructor
 	virtual ~CSRSTransform();

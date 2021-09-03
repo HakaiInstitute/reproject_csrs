@@ -7,9 +7,10 @@
 
 #include <string>
 #include <proj.h>
+#include <ProjectionFactory.h>
 
 namespace hakai_csrs {
-class HelmertFactory {
+class HelmertFactory : public ProjectionFactory {
 private:
 	double itrf_epoch{2010}, x, dx, y, dy, z, dz, rx, drx, ry, dry, rz, drz, s, ds;
 	[[nodiscard]] std::string proj_str() const;
