@@ -1,7 +1,8 @@
 # Reproject CSRS
 
 This program converts Lidar point coordinates in .las, .sbet, and other lidar file formats from various ITRF
-realizations to NAD83(CSRS).
+realizations to NAD83(CSRS). Furthermore, it is possible to convert input ellipsoidal heights to CGVD28(HT2_2010v70) or
+CGVD2013(CGG2013a) orthometric heights.
 
 It does this with high accuracy by using the official Helmert transformation parameters and NAD83(CSRS) v7 Velocity
 Grid (NAD83v70VG) from Natural Resources Canada
@@ -55,9 +56,10 @@ workflow. An example pipeline.json for running just this reproject_csrs library 
     "type": "filters.reprojectcsrs",
     "s_ref_frame": "itrf14",
     "s_crs": "EPSG:4326",
-    "t_crs": "EPSG:4954",
     "s_epoch": 2021.000,
     "t_epoch": 1997.000,
+    "t_vd": "cgvd2013_cgg2013a",
+    "out": "utm9",
     "inv": false
   },
   "output.laz"
@@ -88,23 +90,25 @@ filters.reprojectcsrs -- https://github.com/HakaiInstitute/reproject_csrs
       If 'where' option is set, describes how skipped points should be merged with kept points in standard mode.
 
   s_ref_frame [itrf14]
-      The source reference frame of the coordinates [itrf88|itrf89|itrf90|itrf91|itrf92|itrf93|itrf94|itrf96|itrf97|itrf00|itrf05|itrf08|itrf14|nad83csrs]
+      The source reference frame of the coordinates. One of [itrf88, itrf89, itrf90, itrf91, itrf92, itrf93, itrf94, itrf96, itrf97, itrf00, itrf05, itrf08, itrf14, nad83csrs]
 
   s_crs [EPSG:4326]
       The source CRS in 'AUTHORITY:CODE' format, or as a proj string like '+proj=longlat +datum=WGS84'or a CRS name found in the proj database
-
-  t_crs [EPSG:4954]
-      The target CRS in 'AUTHORITY:CODE' format, or as a proj string like '+proj=longlat +datum=WGS84' or a CRS name found in the proj database
 
   s_epoch [2010]
       The reference epoch for the input in decimal year format, e.g. '2020.5342'
 
   t_epoch
-      Optional reference epoch for the output in decimal year format, e.g. '1997.0000'. By default, the output epoch will match the s_epoch value.
+      Optional: The reference epoch for the output in decimal year format, e.g. '1997.0000'. By default, the output epoch will match the s_epoch value.
+
+  t_vd
+      Optional: The output orthometric height datum and geoid.By default, outputs Nad83(CSRS) ellipsoidal heights. One of [cgvd2013_cgg2013a, cgvd28_ht2010v70]
+
+  out [geog]
+      The output type. Specify 'geog' for geographic coordinates, 'cart' for cartesian, or 'utmX' for UTM coordinates in zone X (i.e. specify an int value, not literally 'X')
 
   inv [false]
-      Do the reverse transformation (ie. from nad83csrs,t_epoch,t_crs to s_ref_frame,s_epoch,s_crs.
-
+      Do the reverse transformation (ie. from nad83csrs,t_epoch,t_vd,out to s_ref_frame,s_epoch,s_crs.
 ```
 
 ## Common problems
@@ -116,7 +120,8 @@ filters.reprojectcsrs -- https://github.com/HakaiInstitute/reproject_csrs
       the `PDAL_DRIVER_PATH` environment variable to point to the directory containing the
       plugin. [More information here](https://pdal.io/faq.html).
 - Missing grid files
-  - Download missing grid files with [projsync](https://proj.org/apps/projsync.html), e.g. `projsync --area-of-use Canada`
+    - Download missing grid files with [projsync](https://proj.org/apps/projsync.html),
+      e.g. Do `projsync --area-of-use Canada`
 
 ## Files
 
@@ -125,7 +130,6 @@ filters.reprojectcsrs -- https://github.com/HakaiInstitute/reproject_csrs
     - `CSRSTransform.cpp` - Object that instantiates the PROJ pipeline to convert individual coordinates
     - `HelmertFactory.cpp` - Factory for creating a proj transform based on a specified ITRF reference frame
 - `include/`
-    - `constants.h` - Some constants used throughout the program
     - `Transform.h` - An abstract base class used by the CSRSTransform class
 
 ---

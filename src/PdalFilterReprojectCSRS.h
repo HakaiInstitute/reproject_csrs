@@ -14,16 +14,17 @@ class PDAL_DLL PdalFilterReprojectCSRS : public StreamCallbackFilter {
 private:
 	std::string s_ref_frame;            // e.g. itrf14
 	std::string s_crs;                  // e.g. EPSG:4326
-	std::string t_crs;				    // e.g. EPSG:3157
+	std::string out;                    // e.g. 'geog', 'cart', 'utmX'
 	double s_epoch;                     // e.g. 2020.5342
 	double t_epoch;                     // e.g. 1997.0000
+	std::string t_vd{};                 // e.g. cgvd28_ht2010v70
 	bool inv{false};
 
 	std::unique_ptr<hakai_csrs::CSRSTransform> transformer{nullptr};
 
 	void addArgs(ProgramArgs& args) override;
 	void ready(BasePointTable& table) override;
-	void done(BasePointTable& table) override;
+//	void done(BasePointTable& table) override;
 
 	PdalFilterReprojectCSRS& operator=(const PdalFilterReprojectCSRS&); // not implemented
 	PdalFilterReprojectCSRS(const PdalFilterReprojectCSRS&); // not implemented
@@ -33,7 +34,7 @@ protected:
 
 public:
 	PdalFilterReprojectCSRS()
-			:StreamCallbackFilter() {}
+			:StreamCallbackFilter() { }
 
 	std::string getName() const override;
 };
