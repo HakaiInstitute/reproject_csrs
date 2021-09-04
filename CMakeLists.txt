@@ -14,7 +14,12 @@ find_package(PDAL 1.0.0 REQUIRED CONFIG)
 include_directories(
         ${PROJECT_SOURCE_DIR}/include
         ${PROJECT_SOURCE_DIR}/src
+        ${PDAL_INCLUDE_DIRS}
 )
+
+# Setup PDAL
+link_directories(${PDAL_LIBRARY_DIRS})
+add_definitions(${PDAL_DEFINITIONS})
 
 # Get a list of all the source files
 file(GLOB all_SRCS
@@ -27,11 +32,5 @@ file(GLOB all_SRCS
 # Set the library target
 add_library(pdal_plugin_filter_reprojectcsrs SHARED ${all_SRCS})
 
-# Setup linker and include directories for 3rd party packages
-target_include_directories(
-        pdal_plugin_filter_reprojectcsrs
-        PRIVATE ${PDAL_INCLUDE_DIRS}
-)
-target_link_directories(pdal_plugin_filter_reprojectcsrs PRIVATE ${PDAL_LIBRARY_DIRS})
-add_definitions(${PDAL_DEFINITIONS})
+# Link PDAL and PROJ
 target_link_libraries(pdal_plugin_filter_reprojectcsrs PRIVATE ${PROJ_LIBRARIES} PRIVATE ${PDAL_LIBRARIES})
