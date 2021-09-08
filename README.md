@@ -13,14 +13,14 @@ Grid (NAD83v70VG) from Natural Resources Canada
 ### Installation prerequisites
 
 - [Git](https://git-scm.com/downloads) (for downloading source code)
-- [PROJ 7 or 8](https://proj.org/download.html)
+- [~~PROJ 7 or 8~~ Built automatically](https://proj.org/download.html)
 - [PDAL ~2.2](https://pdal.io/download.html)
 - [CMake 3.16+](https://cmake.org/install/)
 
 On Ubuntu install all dependencies with
 
 ```shell
-sudo apt install git libproj-dev libpdal-dev cmake
+sudo apt install git libpdal-dev cmake
 ```
 
 ### Building from source
@@ -28,17 +28,16 @@ sudo apt install git libproj-dev libpdal-dev cmake
 ```shell
 # Download the source code
 git clone https://github.com/HakaiInstitute/reproject_csrs.git
-
 cd reproject_csrs
 
-# Configure CMake
+# Configure
 cmake -B ./build -DCMAKE_BUILD_TYPE=Release
 
 # Build
-cmake --build ./build --config Release
+cmake --build ./build --config Release -j5
 
-# Copy the produced dynamic lib to your prefered location (.so on Linux, .dll on Windows)
-cp ./build/libpdal_plugin_filter_reprojectcsrs.so ~/
+# Install
+sudo cmake --install ./build
 
 cd -
 ```
