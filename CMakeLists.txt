@@ -3,9 +3,6 @@ project(reproject_csrs)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Put FindPROJ.cmake in the search path
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
-
 # Build proj source
 include(ExternalProject)
 set(PROJ_PREFIX proj81)
