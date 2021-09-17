@@ -20,7 +20,7 @@ Grid (NAD83v70VG) from Natural Resources Canada
 On Ubuntu install all dependencies with
 
 ```shell
-sudo apt install git libpdal-dev cmake
+sudo apt install git libpdal-dev cmake sqlite3
 ```
 
 ### Building from source
@@ -57,7 +57,7 @@ workflow. An example pipeline.json for running just this reproject_csrs library 
     "s_crs": "EPSG:4326",
     "s_epoch": 2021.000,
     "t_epoch": 1997.000,
-    "t_vd": "cgvd2013_cgg2013a",
+    "t_vd": "cgg2013a",
     "out": "utm9",
     "inv": false
   },
