@@ -20,7 +20,7 @@ Grid (NAD83v70VG) from Natural Resources Canada
 On Ubuntu install all dependencies with
 
 ```shell
-sudo apt install git libpdal-dev cmake sqlite3
+sudo apt update && sudo apt install git libpdal-dev cmake sqlite3 build-essential
 ```
 
 ### Building from source
