@@ -1,0 +1,32 @@
+{% set version = "0.1.0" %}
+{% set pdal_version = ">=2.3.0" %}
+{% set proj_version = ">=8.0.1" %}
+
+package:
+  name: pdal_filter_reprojectcsrs
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/HakaiInstitute/reproject_csrs
+  git_tag: {{ version }}
+
+requirements:
+  build:
+    - cmake >=3.16
+    - git
+    - pdal {{ pdal_version }}
+    - proj {{ proj_version }}
+  host:
+    - pdal {{ pdal_version }}
+  run:
+    - pdal {{ pdal_version }}
+
+about:
+  home: https://github.com/HakaiInstitute/reproject_csrs
+  license: MIT
+  summary: 'PDAL plugin to convert coordinates from various ITRF realizations to NAD83(CSRS).'
+  description: |
+    A PDAL plugin to convert coordinates from various ITRF realizations to NAD83(CSRS).
+  dev_url: https://github.com/HakaiInstitute/reproject_csrs
+  doc_url: https://github.com/HakaiInstitute/reproject_csrs
+  doc_source_url: https://github.com/HakaiInstitute/reproject_csrs/blob/master/README.md
