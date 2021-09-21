@@ -15,7 +15,7 @@ This is the simplest install method. It has been tested with 64-bit linux system
 In your preferred conda environment, run:
 
 ```shell
-conda install -c conda-forge pdal pdal_filter_reprojectcsrs
+conda install -c conda-forge pdal proj
 conda install -c hakaiinstitute pdal_filter_reprojectcsrs
 ```
 
