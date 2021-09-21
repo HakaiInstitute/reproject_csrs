@@ -12,34 +12,55 @@ Grid (NAD83v70VG) from Natural Resources Canada
 
 ### Installation prerequisites
 
+To build this pdal plugin, the following packages are required. The installation of these prerequisites is detailed in the OS specific instructions below.
+
 - [Git](https://git-scm.com/downloads) (for downloading source code)
-- [~~PROJ 7 or 8~~ Built automatically](https://proj.org/download.html)
-- [PDAL ~2.2](https://pdal.io/download.html)
 - [CMake 3.16+](https://cmake.org/install/)
+- [PROJ ~= 8.0.1](https://proj.org/download.html)
+- [PDAL ~= 2.3](https://pdal.io/download.html)
 
-On Ubuntu install all dependencies with
+#### Ubuntu
+The `apt` package manager on Ubuntu unfortunately only contains older versions of PDAL and PROJ. The easiest way to get the newer package versions is via `conda`.
+
+If you do not already have conda installed, install it now using the instructions here: [Install Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html#)
 
 ```shell
-sudo apt update && sudo apt install git libpdal-dev cmake sqlite3 build-essential
-```
+# Install prerequisites
+sudo apt update && sudo apt install git cmake build-essential
 
-### Building from source
+# Create a new conda env named csrs and install pdal and proj
+conda create -n csrs -c conda-forge pdal proj
 
-```shell
-# Download the source code
+# Activate the conda environment
+conda activate csrs
+
 git clone https://github.com/HakaiInstitute/reproject_csrs.git
 cd reproject_csrs
 
-# Configure
-cmake -B ./build -DCMAKE_BUILD_TYPE=Release
+# Configure this build to use the PDAL and PROJ versions in the conda env
+cmake -B ./build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=${CONDA_PREFIX}
 
-# Build
+# Build and install
 cmake --build ./build --config Release -j5
+cmake --install ./build
+```
 
-# Install
-sudo cmake --install ./build
+Keep in mind that to use this plugin, you must have loaded the conda environment in your shell session using `conda activate csrs`.
 
-cd -
+#### Arch Linux
+Arch Linux (and derivatives) have up-to-date packages for PDAL and PROJ, which simplifies the build process.
+
+```shell
+# Install prerequisites
+pamac -S git cmake pdal proj
+
+git clone https://github.com/HakaiInstitute/reproject_csrs.git
+cd reproject_csrs
+
+# Build and install
+cmake -B ./build -DCMAKE_BUILD_TYPE=Release
+cmake --build ./build --config Release -j5
+cmake --install ./build
 ```
 
 ## Usage
@@ -128,8 +149,10 @@ filters.reprojectcsrs -- https://github.com/HakaiInstitute/reproject_csrs
     - `PdalFilterReprojectCSRS.cpp` - The main library file that implements a PDAL Filter
     - `CSRSTransform.cpp` - Object that instantiates the PROJ pipeline to convert individual coordinates
     - `HelmertFactory.cpp` - Factory for creating a proj transform based on a specified ITRF reference frame
+    - `VerticalGridShiftFactory.cpp` - Factory for creating a proj transform to do a vertical reference transformation
 - `include/`
     - `Transform.h` - An abstract base class used by the CSRSTransform class
+    - `ProjectionFactory.h` - An abstract base class used by the HelmertFactory and VerticalGridShiftFactory classes
 
 ---
 

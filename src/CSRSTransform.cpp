@@ -6,7 +6,6 @@
 #include <stdexcept>
 #include <utility>
 #include <memory>
-#include <functional>
 #include "CSRSTransform.h"
 
 namespace hakai_csrs {
