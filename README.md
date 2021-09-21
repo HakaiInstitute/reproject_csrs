@@ -10,7 +10,16 @@ Grid (NAD83v70VG) from Natural Resources Canada
 
 ## Installation
 
-### Installation prerequisites
+### Conda
+This is the simplest install method. It has been tested with 64-bit linux systems. Windows may be supported in the future.
+In your preferred conda environment, run:
+
+```shell
+conda install -c conda-forge pdal pdal_filter_reprojectcsrs
+conda install -c tayden pdal_filter_reprojectcsrs
+```
+
+### From source
 
 To build this pdal plugin, the following packages are required. The installation of these prerequisites is detailed in the OS specific instructions below.
 
