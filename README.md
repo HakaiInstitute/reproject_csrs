@@ -16,7 +16,7 @@ In your preferred conda environment, run:
 
 ```shell
 conda install -c conda-forge pdal pdal_filter_reprojectcsrs
-conda install -c tayden pdal_filter_reprojectcsrs
+conda install -c hakaiinstitute pdal_filter_reprojectcsrs
 ```
 
 ### From source
