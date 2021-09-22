@@ -16,7 +16,7 @@ In your preferred conda environment, run:
 
 ```shell
 conda install -c conda-forge pdal proj
-conda install -c hakaiinstitute pdal_filter_reprojectcsrs
+conda install -c hakai-institute pdal_filter_reprojectcsrs
 ```
 
 ### From source
