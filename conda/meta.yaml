@@ -10,8 +10,13 @@ source:
   git_url: https://github.com/HakaiInstitute/reproject_csrs
   git_tag: {{ version }}
 
+build:
+  number: 1
+
 requirements:
   build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
     - cmake >=3.16
     - git
     - pdal {{ pdal_version }}
