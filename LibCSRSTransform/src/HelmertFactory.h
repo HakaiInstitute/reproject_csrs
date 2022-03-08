@@ -7,7 +7,7 @@
 
 #include <string>
 #include <proj.h>
-#include <ProjectionFactory.h>
+#include "ProjectionFactory.h"
 
 namespace hakai_csrs {
 class HelmertFactory : public ProjectionFactory {

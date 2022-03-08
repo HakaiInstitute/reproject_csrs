@@ -1,5 +1,4 @@
 # Configure this build to use the PDAL and PROJ versions in the conda env
-# shellcheck disable=SC2068
 cmake -B ./build \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_PREFIX_PATH="$PREFIX" \

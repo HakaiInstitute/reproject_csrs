@@ -5,7 +5,7 @@
 #ifndef REPROJECT_CSRS_VERTICALGRIDSHIFTFACTORY_H
 #define REPROJECT_CSRS_VERTICALGRIDSHIFTFACTORY_H
 
-#include <ProjectionFactory.h>
+#include "ProjectionFactory.h"
 #include <string>
 #include <proj.h>
 

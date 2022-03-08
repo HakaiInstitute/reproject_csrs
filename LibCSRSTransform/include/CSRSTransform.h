@@ -9,9 +9,9 @@
 #include <utility>
 #include <proj.h>
 #include <vector>
-#include "Transform.h"
-#include "HelmertFactory.h"
-#include "VerticalGridShiftFactory.h"
+#include "../src/Transform.h"
+#include "../src/HelmertFactory.h"
+#include "../src/VerticalGridShiftFactory.h"
 
 namespace hakai_csrs {
 // Custom smart pointer for PJ transformation objects
@@ -46,6 +46,9 @@ public:
 	// Transform functions
 	void forward(PJ_COORD& coord) override { trans(coord, PJ_FWD); }
 	void backward(PJ_COORD& coord) override;
+
+	std::tuple<double, double, double> forward(double x, double y, double z);
+	std::tuple<double, double, double> backward(double x, double y, double z);
 };
 }
 

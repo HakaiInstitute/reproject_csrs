@@ -3,8 +3,6 @@
 //
 
 #include "PdalFilterReprojectCSRS.h"
-#include "CSRSTransform.h"
-#include <pdal/pdal_internal.hpp>
 
 namespace pdal {
 

@@ -11,13 +11,10 @@
 namespace hakai_csrs {
 // Constructor
 CSRSTransform::CSRSTransform(
-		const std::string& sRefFrame, std::string sCrs, double sEpoch, double tEpoch, const std::string& tVd, std::string outCoords)
-		: helmert_factory{sRefFrame}
-		, s_crs{std::move(sCrs)}
-		, s_epoch{sEpoch}
-		, t_epoch{tEpoch!=0 ? tEpoch : sEpoch}
-		, vertical_grid_shift_factory{tVd}
-		, out{std::move(outCoords)}
+		const std::string& sRefFrame, std::string sCrs, double sEpoch, double tEpoch, const std::string& tVd,
+		std::string outCoords)
+		:helmert_factory{sRefFrame}, s_crs{std::move(sCrs)}, s_epoch{sEpoch}, t_epoch{tEpoch!=0 ? tEpoch : sEpoch},
+		 vertical_grid_shift_factory{tVd}, out{std::move(outCoords)}
 {
 	// 1. ITRFxx Ellips -> NAD83(CSRS) Ellips
 	PJ_ptr P_in2cartesian{proj_create_crs_to_crs(this->ctx, this->s_crs.c_str(), "+proj=cart +ellps=GRS80", nullptr)};
@@ -112,5 +109,18 @@ void CSRSTransform::backward(PJ_COORD& coord)
 
 	// Un-reverse the transforms list
 	std::reverse(this->transforms.begin(), this->transforms.end());
+}
+
+std::tuple<double, double, double> CSRSTransform::backward(double x, double y, double z)
+{
+	PJ_COORD coord = proj_coord(x, y, z, this->s_epoch);
+	this->backward(coord);
+	return std::tuple{coord.xyz.x, coord.xyz.y, coord.xyz.z};
+}
+std::tuple<double, double, double> CSRSTransform::forward(double x, double y, double z)
+{
+	PJ_COORD coord = proj_coord(x, y, z, this->s_epoch);
+	this->forward(coord);
+	return std::tuple{coord.xyz.x, coord.xyz.y, coord.xyz.z};
 }
 }
