@@ -9,9 +9,10 @@
 #include <utility>
 #include <proj.h>
 #include <vector>
-#include "../src/Transform.h"
-#include "../src/HelmertFactory.h"
-#include "../src/VerticalGridShiftFactory.h"
+#include <memory>
+#include "Transform.h"
+#include "HelmertFactory.h"
+#include "VerticalGridShiftFactory.h"
 
 namespace hakai_csrs {
 // Custom smart pointer for PJ transformation objects

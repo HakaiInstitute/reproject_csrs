@@ -1,4 +1,4 @@
-# Configure this build to use the PROJ versions in the conda env
+# Configure this build to use the PDAL and PROJ versions in the conda env
 cmake -B ./build \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_PREFIX_PATH="$PREFIX" \

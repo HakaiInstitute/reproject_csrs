@@ -1,8 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="pdal_plugin_filter_reprojectcsrs" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="pipeline pipeline.json" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" WORKING_DIR="file://$ProjectFileDir$/share" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_PATH="$USER_HOME$/miniconda3/envs/pdal/bin/pdal" EXPLICIT_BUILD_TARGET_NAME="all">
-    <method v="2">
-      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      <option name="CMake.Install" enabled="true" />
-    </method>
-  </configuration>
-</component>

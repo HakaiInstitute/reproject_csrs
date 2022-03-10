@@ -2,9 +2,8 @@
 <project version="4">
   <component name="CMakeSharedSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-DCMAKE_PREFIX_PATH=/home/taylor/anaconda3/envs/csrs -DCMAKE_INSTALL_PREFIX=/home/taylor/anaconda3/envs/csrs" />
-      <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" GENERATION_OPTIONS="-DCMAKE_PREFIX_PATH=/home/taylor/anaconda3/envs/csrs -DCMAKE_INSTALL_PREFIX=/home/taylor/anaconda3/envs/csrs" />
-      <configuration PROFILE_NAME="Debug MinGW-w64" ENABLED="false" CONFIG_NAME="Debug" TOOLCHAIN_NAME="MinGW-w64 (x86_64)" GENERATION_OPTIONS="-DCMAKE_PREFIX_PATH=/home/taylor/miniconda3/envs/pdal" />
+      <configuration PROFILE_NAME="Debug-Visual Studio" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="Visual Studio" GENERATION_OPTIONS="-DCMAKE_PREFIX_PATH=C:\Users\tayde\miniconda3\envs\csrs -DCMAKE_INSTALL_PREFIX=C:\Users\tayde\miniconda3\envs\csrs\Library" />
+      <configuration PROFILE_NAME="Release-Visual Studio" ENABLED="true" CONFIG_NAME="Release" TOOLCHAIN_NAME="Visual Studio" GENERATION_OPTIONS="-DCMAKE_PREFIX_PATH=C:\Users\tayde\miniconda3\envs\csrs -DCMAKE_INSTALL_PREFIX=C:\Users\tayde\miniconda3\envs\csrs" />
     </configurations>
   </component>
 </project>

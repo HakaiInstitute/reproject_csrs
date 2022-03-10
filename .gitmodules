@@ -1,0 +1,7 @@
+[submodule "LibCSRSPy/pybind11"]
+	path = LibCSRSPy/pybind11
+	url = https://github.com/pybind/pybind11.git
+[submodule "LibCSRSPy/extern/pybind11"]
+	path = LibCSRSPy/extern/pybind11
+	url = https://github.com/pybind/pybind11.git
+	branch = stable

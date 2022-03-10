@@ -3,7 +3,7 @@
 //
 
 #include <stdexcept>
-#include "HelmertFactory.h"
+#include "../include/HelmertFactory.h"
 
 namespace hakai_csrs {
 HelmertFactory::HelmertFactory(const std::string& s_ref_frame)

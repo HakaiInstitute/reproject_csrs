@@ -4,7 +4,7 @@
 
 #include <stdexcept>
 #include <proj.h>
-#include "VerticalGridShiftFactory.h"
+#include "../include/VerticalGridShiftFactory.h"
 
 namespace hakai_csrs {
 

@@ -1,4 +1,4 @@
-find_package(PDAL 2.3.0 REQUIRED CONFIG)
+find_package(PDAL 2 REQUIRED CONFIG)
 
 # Get a list of all the source files
 file(GLOB_RECURSE _HDRS "include/*.h")
